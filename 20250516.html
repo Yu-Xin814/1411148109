@@ -91,7 +91,7 @@ el.object3D.scale.set(this.currentScale, this.currentScale, this.currentScale);
 // 旋轉
 const deltaAngle = angle - this.prevAngle;
 const rot = el.object3D.rotation;
-el.object3D.rotation.set(x, y, z + deltaAngle);
+el.object3D.rotation.set(rot.x, rot.y, rot.z + deltaAngle);
 // 更新參考值
 this.prevDistance = dist;
 this.prevAngle = angle;

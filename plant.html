@@ -1,115 +1,118 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Plant introduction </title>
-  <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+<meta charset="utf-8" />
+<title>Plant introduction</title>
+<!-- 引入 A-Frame 與 MindAR 核心庫 -->
+<script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-
+aframe.prod.js"></script>
 <style>
-body { margin: 0; overflow: hidden; }
-button { position: absolute; top: 20px; left: 20px; z-index: 2; }
-</style>
-  
-</head>
-<body><!-- A-Frame 場景設定 -->
-<a-scene
-mindar-image="imageTargetSrc: targets.mind; autoStart: true; uiScanning: true;"
-color-space="sRGB"
-renderer="colorManagement: true; physicallyCorrectLights: true"
-vr-mode-ui="enabled: false"
-device-orientation-permission-ui="enabled: false"
->
-<!-- 載入影片資源（要與 HTML 放在同一目錄） -->
-<a-assets>
-<video id="introVid" src="plant1.mp4" preload="auto" loop muted></video>
-</a-assets>
-<!-- 環境光線，避免影片太暗 -->
-<a-light type="ambient" intensity="1.5"></a-light>
-<!-- 相機（禁止滑動視角） -->
-<a-camera look-controls="enabled: false"></a-camera>
-<!-- 掃描到圖卡後顯示影片 -->
-<a-entity mindar-image-target="targetIndex: 0">
-<a-video
-id="videoEntity"
-src="#introVid"
-width="0.7" height="1.2"
-autoplay="false"
-loop="true"
-material="shader: flat"
-position="0 0 0">
-</a-video>
-</a-entity>
-</a-scene>
-<!-- 點擊播放 / 暫停的互動邏輯 -->
-<script>
-// 取得影片 DOM 與影片平面實體
-const video = document.querySelector('#introVid');
-const videoPlane = document.querySelector('#videoEntity');
-// 取得包含 mindar-image-target 屬性的實體，對它監聽 targetFound 事件
-const targetEntity = document.querySelector('a-entity[mindar-image-target]');
-// （可選）保留點擊切換播放／暫停功能
-videoPlane.addEventListener('click', () => {
-if (video.paused) {
-video.play();
-} else {
-video.pause();
+/* 隱藏滾動條，讓 AR 視圖全螢幕顯示 */
+body {
+margin: 0;
+overflow: hidden;
 }
-});
-// 當偵測到 target 被找到時，自動播放影片
-targetEntity.addEventListener('targetFound', () => {
-// console.log('Target Found，開始播放影片');
-video.play();
-});
-// 當偵測到 target 遺失時，自動暫停並重置播放時間
-targetEntity.addEventListener('targetLost', () => {
-// console.log('Target Lost，暫停並重置影片');
-video.pause();
-video.currentTime = 0;
-});
-</script>
-    <a-scene
-mindar-image="
-imageTargetSrc: plant1.mind;
-autoStart: true;
-uiLoading: true;
-uiError: true;
-uiScanning: true;
-"
+</style>
+</head>
+<body>
+<!-- A-Frame 場景根元素 -->
+<!-- mindar-image：設定 AR 標記檔案路徑、自動開始與 UI 顯示 -->
+<a-scene
+mindar-image="imageTargetSrc: plant1.mind; autoStart: true; uiLoading: true; uiError: true; uiScanning: true;"
 color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false"
 >
-<!-- 載入名片 -->
+<!-- 資源預載：貼圖 -->
 <a-assets>
-<!-- 這裡用 card1.jpg，id 取叫 resultImg -->
 <img id="resultImg" src="card1.jpg" />
 </a-assets>
+<!-- 環境光，避免場景全黑 -->
 <a-light type="ambient" intensity="3"></a-light>
+<!-- 相機：關閉 look-controls，鎖定位置 -->
 <a-camera look-controls="enabled: false"></a-camera>
-<a-entity id="marker" mindar-image-target="targetIndex: 0">
-<a-plane src="#resultImg" width="1.2" height="0.7" position="0 0 0"></a-plane>
+<!-- 定義第 0 號 AR 標記 -->
+<a-entity mindar-image-target="targetIndex: 0">
+<!-- 顯示名片的平面，並掛上 touch-transform 組件 -->
+<a-plane
+src="card1.jpg"
+width="1.2"
+height="0.7"
+position="0 0 0"
+touch-transform
+></a-plane>
 </a-entity>
 </a-scene>
 
-
-  <h1>🌱 掃描植物圖像成功！</h1>
-  <div class="button-container">
-    <button class="btn" onclick="showCard()">顯示介紹卡片</button>
-    <button class="btn" onclick="openVideo()">觀看影片</button>
-  </div>
-
-  <div class="card" id="infoCard">
-    <img src="card1.jpg" alt="台灣二葉松介紹卡片">
-  </div>
-
- <iframe width="560" height="315"
-  src="https://www.youtube.com/embed/LrgN8tNooY4?si=KB-zA4hC4mfK6NkI"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen>
-</iframe>
-
+<!-- 自訂 A-Frame 組件：觸控縮放、旋轉、雙擊重設 -->
+<script>
+AFRAME.registerComponent('touch-transform', {
+init: function () {
+const el = this.el;
+// 保存原始縮放值，用於雙擊重設
+this.defaultScale = el.object3D.scale.x;
+this.currentScale = this.defaultScale;
+this.prevDistance = null;
+this.prevAngle = null;
+this.lastTap = 0;
+// 雙擊重設大小與旋轉
+el.addEventListener('click', () => {
+const now = Date.now();
+if (now - this.lastTap < 300) {
+el.object3D.scale.set(this.defaultScale, this.defaultScale, this.defaultScale);
+el.object3D.rotation.set(0, 0, 0);
+this.currentScale = this.defaultScale;
+}
+this.lastTap = now;
+});
+const canvas = el.sceneEl.canvas;
+// 偵測兩指觸控開始：計算初始距離與角度
+canvas.addEventListener('touchstart', (e) => {
+if (e.touches.length === 2) {
+const dx = e.touches[0].clientX - e.touches[1].clientX;
+const dy = e.touches[0].clientY - e.touches[1].clientY;
+this.prevDistance = Math.hypot(dx, dy);
+this.prevAngle = Math.atan2(dy, dx);
+}
+});
+範例程式碼3
+// 兩指移動時執行縮放與旋轉
+canvas.addEventListener('touchmove', (e) => {
+if (e.touches.length === 2 && this.prevDistance !== null) {
+const dx = e.touches[0].clientX - e.touches[1].clientX;
+const dy = e.touches[0].clientY - e.touches[1].clientY;
+const dist = Math.hypot(dx, dy);
+const angle = Math.atan2(dy, dx);
+// 縮放：限制在 0.5～3 倍之間
+const scaleFactor = dist / this.prevDistance;
+this.currentScale *= scaleFactor;
+this.currentScale = Math.min(Math.max(this.currentScale, 0.5), 3);
+el.object3D.scale.set(this.currentScale, this.currentScale, this.currentScale);
+// 旋轉
+const deltaAngle = angle - this.prevAngle;
+const rot = el.object3D.rotation;
+el.object3D.rotation.set(rot.x, rot.y, rot.z + deltaAngle);
+// 更新參考值
+this.prevDistance = dist;
+this.prevAngle = angle;
+e.preventDefault(); // 避免預設手勢行為
+}
+});
+// 觸控結束後重置參考值
+canvas.addEventListener('touchend', () => {
+if (el.sceneEl.canvas.touches && el.sceneEl.canvas.touches.length < 2) {
+this.prevDistance = null;
+this.prevAngle = null;
+}
+});
+}
+});
+</script>
 </body>
 </html>
+
+
+
+

@@ -1,43 +1,15 @@
-</html>
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
-<meta charset="utf-8" />
-<title>Plant introduction</title>
-<script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Plant introduction </title>
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 <style>
-html, body {
-margin: 0; padding: 0;
-width: 100%; height: 100%;
-overflow: hidden;
-}
-a-scene {
-width: 100%; height: 100%;
-position: fixed; top: 0; left: 0;
-}
-/* 隱藏所有 MindAR 預設 UI */
-.mindar-ui-loading,
-.mindar-ui-error,
-.mindar-ui-scanning {
-display: none;
-}
-/* 自訂文字的外層 DIV */
-#custom-text {
-display: none; /* 預設隱藏 */
-position: fixed;
-top: 20px; /* 距離頂部 20px */
-left: 50%;
-transform: translateX(-50%);
-background: rgba(0, 0, 0, 0.6);
-color: white;
-padding: 0.5em 1em;
-font-size: 1.5em;
-border-radius: 0.3em;
-z-index: 9999;
-pointer-events: none;
-}
+body { margin: 0; overflow: hidden; }
+button { position: absolute; top: 20px; left: 20px; z-index: 2; }
 </style>
+  <style>
     body {
       font-family: "Noto Sans TC", sans-serif;
       text-align: center;
@@ -71,8 +43,86 @@ pointer-events: none;
     }
   </style>
 </head>
-<body>
-    <img src="Pinus taiwanensis.jpg" alt="台灣二葉松圖像" onclick="revealButtons()" style="width: 300px; cursor: pointer;">
+<body><!-- A-Frame 場景設定 -->
+<a-scene
+mindar-image="imageTargetSrc: targets.mind; autoStart: true; uiScanning: true;"
+color-space="sRGB"
+renderer="colorManagement: true; physicallyCorrectLights: true"
+vr-mode-ui="enabled: false"
+device-orientation-permission-ui="enabled: false"
+>
+<!-- 載入影片資源（要與 HTML 放在同一目錄） -->
+<a-assets>
+<video id="introVid" src="plant1.mp4" preload="auto" loop muted></video>
+</a-assets>
+<!-- 環境光線，避免影片太暗 -->
+<a-light type="ambient" intensity="1.5"></a-light>
+<!-- 相機（禁止滑動視角） -->
+<a-camera look-controls="enabled: false"></a-camera>
+<!-- 掃描到圖卡後顯示影片 -->
+<a-entity mindar-image-target="targetIndex: 0">
+<a-video
+id="videoEntity"
+src="#introVid"
+width="0.7" height="1.2"
+autoplay="false"
+loop="true"
+material="shader: flat"
+position="0 0 0">
+</a-video>
+</a-entity>
+</a-scene>
+<!-- 點擊播放 / 暫停的互動邏輯 -->
+<script>
+// 取得影片 DOM 與影片平面實體
+const video = document.querySelector('#introVid');
+const videoPlane = document.querySelector('#videoEntity');
+// 取得包含 mindar-image-target 屬性的實體，對它監聽 targetFound 事件
+const targetEntity = document.querySelector('a-entity[mindar-image-target]');
+// （可選）保留點擊切換播放／暫停功能
+videoPlane.addEventListener('click', () => {
+if (video.paused) {
+video.play();
+} else {
+video.pause();
+}
+});
+// 當偵測到 target 被找到時，自動播放影片
+targetEntity.addEventListener('targetFound', () => {
+// console.log('Target Found，開始播放影片');
+video.play();
+});
+// 當偵測到 target 遺失時，自動暫停並重置播放時間
+targetEntity.addEventListener('targetLost', () => {
+// console.log('Target Lost，暫停並重置影片');
+video.pause();
+video.currentTime = 0;
+});
+</script>
+    <a-scene
+mindar-image="
+imageTargetSrc: plant1.mind;
+autoStart: true;
+uiLoading: true;
+uiError: true;
+uiScanning: true;
+"
+color-space="sRGB"
+renderer="colorManagement: true; physicallyCorrectLights: true"
+vr-mode-ui="enabled: false"
+device-orientation-permission-ui="enabled: false"
+>
+<!-- 載入名片 -->
+<a-assets>
+<!-- 這裡用 card1.jpg，id 取叫 resultImg -->
+<img id="resultImg" src="card1.jpg" />
+</a-assets>
+<a-light type="ambient" intensity="3"></a-light>
+<a-camera look-controls="enabled: false"></a-camera>
+<a-entity id="marker" mindar-image-target="targetIndex: 0">
+<a-plane src="#resultImg" width="1.2" height="0.7" position="0 0 0"></a-plane>
+</a-entity>
+</a-scene>
 
 
   <h1>🌱 掃描植物圖像成功！</h1>
@@ -93,46 +143,5 @@ pointer-events: none;
   allowfullscreen>
 </iframe>
 
-
-
-
-<a-scene>
-mindar-image="
-imageTargetSrc: plant1.mind;
-autoStart: true;
-showStats: false;
-uiLoading: no;
-uiScanning: no;
-uiError: no;
-"
-color-space="sRGB"
-renderer="colorManagement: true, physicallyCorrectLights"
-vr-mode-ui="enabled: false"
-device-orientation-permission-ui="enabled: false"
-> <!-- 設定 AR 相機位於原點，並關閉滑鼠/手勢控制（僅使用裝置鏡頭） -->
-<a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-<!-- 定義第 0 號圖像目標，綁定 ID 供 JavaScript 監聽掃描事件使用 -->
-<a-entity mindar-image-target="targetIndex: 0" id="target"></a-entity>
-</a-scene>
-<!-- 3. 用 JS 綁事件：掃到 target 時顯示 DIV，掉失時隱藏 -->
-<script>
-// 1. 等整個頁面（DOM、資源）載入完成後，再執行內部程式
-window.addEventListener("load", () => {
-// 2. 取得 AR 目標元素（<a-entity id="target">）
-const targetEl = document.querySelector("#target");
-// 3. 取得自訂文字容器（<div id="custom-text">）
-const customDiv = document.querySelector("#custom-text");
-// 4. 綁定「掃描到目標」事件
-targetEl.addEventListener("targetFound", () => {
-// 4.1 掃描後，將自訂文字顯示出來
-customDiv.style.display = "block";
-});
-// 5. 綁定「目標遺失」事件
-targetEl.addEventListener("targetLost", () => {
-// 5.1 目標消失後，隱藏自訂文字
-customDiv.style.display = "none";
-});
-});
-</script>
 </body>
 </html>

@@ -136,6 +136,14 @@ this.prevAngle = null;
 });
 }
 });
+document.querySelector('#btn-card').addEventListener('click', () => {
+  document.querySelector('#infoCard').setAttribute('visible', 'true');
+  document.querySelector('#plantVideo').setAttribute('visible', 'false');
+});
+
+document.querySelector('#btn-video').addEventListener('click', () => {
+  document.querySelector('#plantVideo').setAttribute('visible', 'true');
+  document.querySelector('#infoCard').setAttribute('visible', 'false');
 </script>
 </body>
 </html>

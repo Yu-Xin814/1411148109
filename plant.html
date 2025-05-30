@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>植物介紹 </title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      text-align: center;
+      background-color: #f2f9f4;
+      padding: 50px;
+    }
+    .button-container {
+      margin-top: 20px;
+    }
+    .btn {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .btn:hover {
+      background-color: #388e3c;
+    }
+    .card {
+      display: none;
+      margin-top: 30px;
+    }
+    .card img {
+      max-width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+    <img src="Pinus taiwanensis.jpg" alt="台灣二葉松圖像" onclick="revealButtons()" style="width: 300px; cursor: pointer;">
+
+
+  <h1>🌱 掃描植物圖像成功！</h1>
+  <div class="button-container">
+    <button class="btn" onclick="showCard()">顯示介紹卡片</button>
+    <button class="btn" onclick="openVideo()">觀看影片</button>
+  </div>
+
+  <div class="card" id="infoCard">
+    <img src="card1.jpg" alt="台灣二葉松介紹卡片">
+  </div>
+
+  <script>
+    function showCard() {
+      document.getElementById("infoCard").style.display = "block";
+    }
+
+    function openVideo() {
+      // 改成你自己的影片連結
+      window.open("IDhttps://www.youtube.com/watch?v=LrgN8tNooY4", "_blank");
+    }
+  </script>
+
+</body>
+</html>

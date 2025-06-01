@@ -24,11 +24,12 @@ color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false"
+
 >
 <!-- 資源預載：貼圖 -->
 <a-assets>
-    
 <img id="resultImg" src="card1.jpg" />
+
 </a-assets>
 <!-- 環境光，避免場景全黑 -->
 <a-light type="ambient" intensity="3"></a-light>
@@ -38,40 +39,26 @@ device-orientation-permission-ui="enabled: false"
 <a-entity mindar-image-target="targetIndex: 0">
 <!-- 顯示名片的平面，並掛上 touch-transform 組件 -->
 <a-plane
- id="btn-card"
-         color="#4CAF50"
-         height="0.3"
-         width="1"
-         position="0 0.3 0"
-         text="value: 查看介紹卡片; color: white; align: center"
-         class="clickable">
-</a-plane>
+src="card1.jpg"
 
-<a-plane id="btn-video"
-         color="#2196F3"
-         height="0.3"
-         width="1"
-         position="0 -0.3 0"
-         text="value: 播放介紹影片; color: white; align: center"
-         class="clickable">
-</a-plane>
- <a-plane id="infoCard"
-           src="card1.jpg"
-           width="1.2"
-           height="0.7"
-           position="0 0 0.01"
-           visible="false">
-  </a-plane>
+width="1.2"
+height="0.7"
+position="0 0 0"
+touch-transform
 
-  <!-- 🎥 YouTube 影片元件（預設隱藏） -->
-  <a-video id="plantVideo"
-           src="plant1.mp4"
-           width="1.6"
-           height="0.9"
-           position="0 0 0.01"
-           visible="false">
-  </a-video>
 ></a-plane>
+ <a-entity id="plantAudio" sound="src: url(audio/Japan.mp3)"></a-entity>
+
+  <!-- 可互動的播放按鈕（例如透明區塊或圖示） -->
+  <a-plane
+    position="0 -0.5 0"
+    width="0.3"
+    height="0.2"
+    color="#FFD"
+    class="clickable"
+    event-set__click="_event: click; _target: #plantAudio; sound.play: "
+  ></a-plane>
+</a-entity>
 </a-entity>
 </a-scene>
 <!-- 自訂 A-Frame 組件：觸控縮放、旋轉、雙擊重設 -->
@@ -136,17 +123,5 @@ this.prevAngle = null;
 });
 }
 });
-document.querySelector('#btn-card').addEventListener('click', () => {
-  document.querySelector('#infoCard').setAttribute('visible', 'true');
-  document.querySelector('#plantVideo').setAttribute('visible', 'false');
-});
-
-document.querySelector('#btn-video').addEventListener('click', () => {
-  document.querySelector('#plantVideo').setAttribute('visible', 'true');
-  document.querySelector('#infoCard').setAttribute('visible', 'false');
 </script>
 </body>
-</html>
-
-
-

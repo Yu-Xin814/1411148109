@@ -37,8 +37,7 @@ device-orientation-permission-ui="enabled: false"
 <a-plane src="#resultImg" width="1.2" height="0.7" position="0 0 0"></a-plane>
 </a-entity>
 </a-scene>
-</body>
-<body>
+
 <a-scene
 mindar-image="
 imageTargetSrc: plant2.mind;
@@ -63,8 +62,7 @@ device-orientation-permission-ui="enabled: false"
 <a-plane src="#resultImg" width="1.2" height="0.7" position="0 0 0"></a-plane>
 </a-entity>
 </a-scene>
-</body>
-<body>
+
 <a-scene
 mindar-image="
 imageTargetSrc: plant3.mind;
@@ -89,8 +87,7 @@ device-orientation-permission-ui="enabled: false"
 <a-plane src="#resultImg" width="1.2" height="0.7" position="0 0 0"></a-plane>
 </a-entity>
 </a-scene>
-</body>
-<body>
+
 <a-scene
 mindar-image="
 imageTargetSrc: plant4.mind;
@@ -115,11 +112,10 @@ device-orientation-permission-ui="enabled: false"
 <a-plane src="#resultImg" width="1.2" height="0.7" position="0 0 0"></a-plane>
 </a-entity>
 </a-scene>
-</body>
 <body>
 <!-- A-Frame 場景設定 -->
 <a-scene
-mindar-image="imageTargetSrc: plant1-2.mind; autoStart: true; uiScanning: true;"
+mindar-image="imageTargetSrc: plant12.mind; autoStart: true; uiScanning: true;"
 color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
@@ -138,47 +134,17 @@ device-orientation-permission-ui="enabled: false"
 <a-video
 id="videoEntity"
 src="#introVid"
-width="1.2" height="0.7"
+width="0.7" height="1.2"
 autoplay="false"
 loop="true"
 material="shader: flat"
 position="0 0 0">
 </a-video>
 </a-entity>
-</a-scene>
 
-<!-- 點擊播放 / 暫停的互動邏輯 -->
-<script>
-// 取得影片 DOM 與影片平面實體
-const video = document.querySelector('#introVid');
-const videoPlane = document.querySelector('#videoEntity');
-// 取得包含 mindar-image-target 屬性的實體，對它監聽 targetFound 事件
-const targetEntity = document.querySelector('a-entity[mindar-image-target]');
-// （可選）保留點擊切換播放／暫停功能
-videoPlane.addEventListener('click', () => {
-if (video.paused) {
-video.play();
-} else {
-video.pause();
-}
-});
-// 當偵測到 target 被找到時，自動播放影片
-targetEntity.addEventListener('targetFound', () => {
-// console.log('Target Found，開始播放影片');
-video.play();
-});
-// 當偵測到 target 遺失時，自動暫停並重置播放時間
-targetEntity.addEventListener('targetLost', () => {
-// console.log('Target Lost，暫停並重置影片');
-video.pause();
-video.currentTime = 0;
-});
-</script>
-</body>
-<body>
-<!-- A-Frame 場景設定 -->
+</a-scene>
 <a-scene
-mindar-image="imageTargetSrc: plant2-2.mind; autoStart: true; uiScanning: true;"
+mindar-image="imageTargetSrc: plant22.mind; autoStart: true; uiScanning: true;"
 color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
@@ -197,47 +163,17 @@ device-orientation-permission-ui="enabled: false"
 <a-video
 id="videoEntity"
 src="#introVid"
-width="1.2" height="0.7"
+width="0.7" height="1.2"
 autoplay="false"
 loop="true"
 material="shader: flat"
 position="0 0 0">
 </a-video>
 </a-entity>
-</a-scene>
 
-<!-- 點擊播放 / 暫停的互動邏輯 -->
-<script>
-// 取得影片 DOM 與影片平面實體
-const video = document.querySelector('#introVid');
-const videoPlane = document.querySelector('#videoEntity');
-// 取得包含 mindar-image-target 屬性的實體，對它監聽 targetFound 事件
-const targetEntity = document.querySelector('a-entity[mindar-image-target]');
-// （可選）保留點擊切換播放／暫停功能
-videoPlane.addEventListener('click', () => {
-if (video.paused) {
-video.play();
-} else {
-video.pause();
-}
-});
-// 當偵測到 target 被找到時，自動播放影片
-targetEntity.addEventListener('targetFound', () => {
-// console.log('Target Found，開始播放影片');
-video.play();
-});
-// 當偵測到 target 遺失時，自動暫停並重置播放時間
-targetEntity.addEventListener('targetLost', () => {
-// console.log('Target Lost，暫停並重置影片');
-video.pause();
-video.currentTime = 0;
-});
-</script>
-</body>
-<body>
-<!-- A-Frame 場景設定 -->
+</a-scene>
 <a-scene
-mindar-image="imageTargetSrc: plant3-2.mind; autoStart: true; uiScanning: true;"
+mindar-image="imageTargetSrc: plant32.mind; autoStart: true; uiScanning: true;"
 color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
@@ -256,47 +192,17 @@ device-orientation-permission-ui="enabled: false"
 <a-video
 id="videoEntity"
 src="#introVid"
-width="1.2" height="0.7"
+width="0.7" height="1.2"
 autoplay="false"
 loop="true"
 material="shader: flat"
 position="0 0 0">
 </a-video>
 </a-entity>
-</a-scene>
 
-<!-- 點擊播放 / 暫停的互動邏輯 -->
-<script>
-// 取得影片 DOM 與影片平面實體
-const video = document.querySelector('#introVid');
-const videoPlane = document.querySelector('#videoEntity');
-// 取得包含 mindar-image-target 屬性的實體，對它監聽 targetFound 事件
-const targetEntity = document.querySelector('a-entity[mindar-image-target]');
-// （可選）保留點擊切換播放／暫停功能
-videoPlane.addEventListener('click', () => {
-if (video.paused) {
-video.play();
-} else {
-video.pause();
-}
-});
-// 當偵測到 target 被找到時，自動播放影片
-targetEntity.addEventListener('targetFound', () => {
-// console.log('Target Found，開始播放影片');
-video.play();
-});
-// 當偵測到 target 遺失時，自動暫停並重置播放時間
-targetEntity.addEventListener('targetLost', () => {
-// console.log('Target Lost，暫停並重置影片');
-video.pause();
-video.currentTime = 0;
-});
-</script>
-</body>
-<body>
-<!-- A-Frame 場景設定 -->
+</a-scene>
 <a-scene
-mindar-image="imageTargetSrc: plant4-2.mind; autoStart: true; uiScanning: true;"
+mindar-image="imageTargetSrc: plant42.mind; autoStart: true; uiScanning: true;"
 color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
@@ -315,13 +221,14 @@ device-orientation-permission-ui="enabled: false"
 <a-video
 id="videoEntity"
 src="#introVid"
-width="1.2" height="0.7"
+width="0.7" height="1.2"
 autoplay="false"
 loop="true"
 material="shader: flat"
 position="0 0 0">
 </a-video>
 </a-entity>
+
 </a-scene>
 
 <!-- 點擊播放 / 暫停的互動邏輯 -->
@@ -351,5 +258,6 @@ video.pause();
 video.currentTime = 0;
 });
 </script>
+
 </body>
 </html>

@@ -5,8 +5,7 @@
 <title>Plant introduction</title>
 <!-- 引入 A-Frame 與 MindAR 核心庫 -->
 <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-
-aframe.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 <style>
 /* 隱藏滾動條，讓 AR 視圖全螢幕顯示 */
 body {
@@ -24,10 +23,12 @@ color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false"
+
 >
 <!-- 資源預載：貼圖 -->
 <a-assets>
 <img id="resultImg" src="card1.jpg" />
+
 </a-assets>
 <!-- 環境光，避免場景全黑 -->
 <a-light type="ambient" intensity="3"></a-light>
@@ -38,6 +39,7 @@ device-orientation-permission-ui="enabled: false"
 <!-- 顯示名片的平面，並掛上 touch-transform 組件 -->
 <a-plane
 src="card1.jpg"
+
 width="1.2"
 height="0.7"
 position="0 0 0"
@@ -45,7 +47,6 @@ touch-transform
 ></a-plane>
 </a-entity>
 </a-scene>
-
 <!-- 自訂 A-Frame 組件：觸控縮放、旋轉、雙擊重設 -->
 <script>
 AFRAME.registerComponent('touch-transform', {
@@ -77,7 +78,6 @@ this.prevDistance = Math.hypot(dx, dy);
 this.prevAngle = Math.atan2(dy, dx);
 }
 });
-
 // 兩指移動時執行縮放與旋轉
 canvas.addEventListener('touchmove', (e) => {
 if (e.touches.length === 2 && this.prevDistance !== null) {
@@ -120,10 +120,12 @@ color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false"
+
 >
 <!-- 資源預載：貼圖 -->
 <a-assets>
 <img id="resultImg" src="card2.jpg" />
+
 </a-assets>
 <!-- 環境光，避免場景全黑 -->
 <a-light type="ambient" intensity="3"></a-light>
@@ -134,14 +136,14 @@ device-orientation-permission-ui="enabled: false"
 <!-- 顯示名片的平面，並掛上 touch-transform 組件 -->
 <a-plane
 src="card2.jpg"
+
 width="3.6"
-height="2.4"
+height="2.1"
 position="0 0 0"
 touch-transform
 ></a-plane>
 </a-entity>
 </a-scene>
-
 <!-- 自訂 A-Frame 組件：觸控縮放、旋轉、雙擊重設 -->
 <script>
 AFRAME.registerComponent('touch-transform', {
@@ -173,7 +175,6 @@ this.prevDistance = Math.hypot(dx, dy);
 this.prevAngle = Math.atan2(dy, dx);
 }
 });
-
 // 兩指移動時執行縮放與旋轉
 canvas.addEventListener('touchmove', (e) => {
 if (e.touches.length === 2 && this.prevDistance !== null) {
@@ -216,10 +217,12 @@ color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false"
+
 >
 <!-- 資源預載：貼圖 -->
 <a-assets>
 <img id="resultImg" src="card3.jpg" />
+
 </a-assets>
 <!-- 環境光，避免場景全黑 -->
 <a-light type="ambient" intensity="3"></a-light>
@@ -230,6 +233,7 @@ device-orientation-permission-ui="enabled: false"
 <!-- 顯示名片的平面，並掛上 touch-transform 組件 -->
 <a-plane
 src="card3.jpg"
+
 width="2.4"
 height="1.4"
 position="0 0 0"
@@ -237,7 +241,6 @@ touch-transform
 ></a-plane>
 </a-entity>
 </a-scene>
-
 <!-- 自訂 A-Frame 組件：觸控縮放、旋轉、雙擊重設 -->
 <script>
 AFRAME.registerComponent('touch-transform', {
@@ -269,7 +272,6 @@ this.prevDistance = Math.hypot(dx, dy);
 this.prevAngle = Math.atan2(dy, dx);
 }
 });
-
 // 兩指移動時執行縮放與旋轉
 canvas.addEventListener('touchmove', (e) => {
 if (e.touches.length === 2 && this.prevDistance !== null) {
@@ -312,10 +314,12 @@ color-space="sRGB"
 renderer="colorManagement: true; physicallyCorrectLights: true"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false"
+
 >
 <!-- 資源預載：貼圖 -->
 <a-assets>
 <img id="resultImg" src="card4.jpg" />
+
 </a-assets>
 <!-- 環境光，避免場景全黑 -->
 <a-light type="ambient" intensity="3"></a-light>
@@ -326,6 +330,7 @@ device-orientation-permission-ui="enabled: false"
 <!-- 顯示名片的平面，並掛上 touch-transform 組件 -->
 <a-plane
 src="card4.jpg"
+
 width="2.4"
 height="1.4"
 position="0 0 0"
@@ -333,7 +338,6 @@ touch-transform
 ></a-plane>
 </a-entity>
 </a-scene>
-
 <!-- 自訂 A-Frame 組件：觸控縮放、旋轉、雙擊重設 -->
 <script>
 AFRAME.registerComponent('touch-transform', {
@@ -365,7 +369,6 @@ this.prevDistance = Math.hypot(dx, dy);
 this.prevAngle = Math.atan2(dy, dx);
 }
 });
-
 // 兩指移動時執行縮放與旋轉
 canvas.addEventListener('touchmove', (e) => {
 if (e.touches.length === 2 && this.prevDistance !== null) {
@@ -400,4 +403,3 @@ this.prevAngle = null;
 </script>
 </body>
 </html>
-
